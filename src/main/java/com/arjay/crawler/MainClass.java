@@ -42,7 +42,6 @@ public class MainClass {
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
 		sb.append(Arrays.asList(OptionField.fields).stream().collect(Collectors.joining(",")));
-		sb.append(System.getProperty("line.separator"));
 
 		LocalDate targetDate = optionConfig.getStartDate();
 		LocalDate endDate = optionConfig.getEndDate();
@@ -51,7 +50,6 @@ public class MainClass {
 
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
 			sb.append(System.getProperty("line.separator"));
-
 			log.info("crawler date:{}", targetDate);
 			
 			// @formatter:off
