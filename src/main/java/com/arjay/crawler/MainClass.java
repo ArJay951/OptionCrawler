@@ -17,14 +17,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.arjay.crawler.config.OptionConfig;
+import com.arjay.crawler.config.SpringConfig;
 import com.arjay.crawler.pojo.Option;
 import com.arjay.crawler.pojo.OptionField;
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 import com.arjay.crawler.service.OptionParser;
-import com.arjay.crawler.service.impl.OptionParserImpl;
 import com.arjay.crawler.utils.ConnectUtils;
 import com.arjay.crawler.utils.FileUtils;
 import com.arjay.crawler.utils.ParamsUtils;
@@ -35,8 +36,13 @@ public class MainClass {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		OptionConfig optionConfig = new OptionConfig(args);
-		OptionParser parser = new OptionParserImpl();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+		OptionConfig optionConfig = context.getBean(OptionConfig.class);
+		optionConfig.setting(args);
+
+		OptionParser parser = context.getBean(OptionParser.class);
+		
 		Random random = new Random(System.currentTimeMillis());
 
 		StringBuilder sb = new StringBuilder();
@@ -51,7 +57,7 @@ public class MainClass {
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
 			sb.append(System.getProperty("line.separator"));
 			log.info("crawler date:{}", targetDate);
-			
+
 			// @formatter:off
 			Response res;
 			try {
@@ -59,7 +65,7 @@ public class MainClass {
 					  .data(ParamsUtils.getRequestParams(targetDate))
 					  .method(Method.POST).execute();
 			} catch (IOException e) {
-				log.info("{}連線有誤。可能是沒資料或者連線有問題。再手動確認 ", targetDate);
+				log.info("[{}]連線有誤。可能是沒資料或者連線有問題。再手動確認 ", targetDate);
 				continue;
 			}
 			// @formatter:on
@@ -91,6 +97,8 @@ public class MainClass {
 		Path pathTo = Paths.get("./" + fileName + ".csv");
 
 		FileUtils.writeFile(pathTo, sb.toString().getBytes());
+		
+		context.close();
 	}
 
 }

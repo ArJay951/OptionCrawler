@@ -5,10 +5,12 @@ import java.time.temporal.ChronoUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.exception.ParamsException;
 import com.arjay.crawler.utils.LocalDateUtils;
 
+@Component
 public class OptionConfig {
 
 	private static Logger log = LoggerFactory.getLogger(OptionConfig.class);
@@ -58,7 +60,7 @@ public class OptionConfig {
 		log.info("-f y/n   是否只顯示外資資料，預設為true。 format : (y/n)");
 	}
 
-	public OptionConfig(String[] args) {
+	public void setting(String[] args) {
 		for (int i = 0; i < args.length; i++) {
 			if ("-h".equalsIgnoreCase(args[i])) {
 				OptionConfig.printHelp();
@@ -97,7 +99,7 @@ public class OptionConfig {
 				}
 
 			} else if ("-f".equalsIgnoreCase(args[i])) {
-				this.filterFI = "y".equalsIgnoreCase(args[i + 1]);
+				this.filterFI = i + 1 > args.length ? true : "y".equalsIgnoreCase(args[i + 1]);
 			}
 		}
 	}

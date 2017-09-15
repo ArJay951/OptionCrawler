@@ -3,11 +3,13 @@ package com.arjay.crawler.service.impl;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.arjay.crawler.pojo.Option;
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.service.OptionParser;
 
+@Service
 public class OptionParserImpl implements OptionParser {
 
 	private Logger log = LoggerFactory.getLogger(OptionParserImpl.class);
