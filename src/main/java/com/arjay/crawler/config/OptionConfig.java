@@ -97,7 +97,7 @@ public class OptionConfig {
 				}
 
 			} else if ("-f".equalsIgnoreCase(args[i])) {
-				this.filterFI = "y".equalsIgnoreCase(args[i + 1]);
+				this.filterFI = i + 1 > args.length ? true : "y".equalsIgnoreCase(args[i + 1]);
 			}
 		}
 	}

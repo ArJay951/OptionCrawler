@@ -51,7 +51,7 @@ public class MainClass {
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
 			sb.append(System.getProperty("line.separator"));
 			log.info("crawler date:{}", targetDate);
-			
+
 			// @formatter:off
 			Response res;
 			try {
@@ -88,6 +88,7 @@ public class MainClass {
 		}
 
 		String fileName = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss").format(LocalDateTime.now());
+		log.info("寫入檔案：{}", fileName);
 		Path pathTo = Paths.get("./" + fileName + ".csv");
 
 		FileUtils.writeFile(pathTo, sb.toString().getBytes());
