@@ -33,7 +33,7 @@ public class MainClass {
 
 	private static Logger log = LoggerFactory.getLogger(MainClass.class);
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+	public static void main(String[] args) throws InterruptedException {
 
 		OptionConfig optionConfig = new OptionConfig(args);
 		OptionParser parser = new OptionParserImpl();

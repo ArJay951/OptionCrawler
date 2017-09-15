@@ -13,7 +13,7 @@ public class OptionConfig {
 
 	private static Logger log = LoggerFactory.getLogger(OptionConfig.class);
 
-	private static final String paramsRegex = "-[sSeEfF]";
+	private static final String paramsRegex = "-[hHsSeEfF]";
 
 	public static final String sourceUrl = "http://www.taifex.com.tw/chinese/3/7_12_5.asp";
 
@@ -51,8 +51,20 @@ public class OptionConfig {
 		return ChronoUnit.DAYS.between(startDate, endDate);
 	}
 
+	public static void printHelp() {
+		log.info("-h help指令");
+		log.info("-s yyyy-MM-dd \n\t設定爬網起始日。\n\t不可比終止日晚。\n\t預設為前一天。");
+		log.info("-e yyyy-MM-dd \n\t設定爬網終止日。\n\t不可早於起始日。\n\t預設為今天。");
+		log.info("-f y/n   是否只顯示外資資料，預設為true。 format : (y/n)");
+	}
+
 	public OptionConfig(String[] args) {
 		for (int i = 0; i < args.length; i++) {
+			if ("-h".equalsIgnoreCase(args[i])) {
+				OptionConfig.printHelp();
+				continue;
+			}
+
 			if (args[i].matches(paramsRegex) && i + 1 > args.length) {
 				throw new ParamsException("參數長度錯誤，請確認是否輸入正確。");
 			}
