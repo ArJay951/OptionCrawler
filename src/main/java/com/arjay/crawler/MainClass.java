@@ -49,7 +49,7 @@ public class MainClass {
 
 		log.info("系統將從{}爬資料到{}", targetDate, endDate);
 
-		for (; targetDate.isBefore(endDate); targetDate.plusDays(1)) {
+		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
 			sb.append(System.getProperty("line.separator"));
 
 			log.info("crawler date:{}", targetDate);

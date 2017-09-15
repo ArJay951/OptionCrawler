@@ -74,7 +74,7 @@ public class OptionConfig {
 					throw new ParamsException("起始日期參數錯誤，請確認是否輸入正確。");
 				}
 
-				this.startDate = LocalDate.parse(args[i]);
+				this.startDate = LocalDate.parse(args[i + 1]);
 				if (this.startDate.isAfter(this.endDate)) {
 					this.startDate = this.endDate.plusDays(-1);
 					log.info("起始日期超過終止日，改設定為終止日前一天。");
@@ -84,7 +84,7 @@ public class OptionConfig {
 					throw new ParamsException("終止日期參數錯誤，請確認是否輸入正確。");
 				}
 
-				this.endDate = LocalDate.parse(args[i]);
+				this.endDate = LocalDate.parse(args[i + 1]);
 
 				if (this.endDate.isAfter(LocalDate.now())) {
 					this.endDate = LocalDate.now();
