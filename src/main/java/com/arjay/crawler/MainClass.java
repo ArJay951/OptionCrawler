@@ -53,15 +53,18 @@ public class MainClass {
 			sb.append(System.getProperty("line.separator"));
 
 			log.info("crawler date:{}", targetDate);
-
+			
+			// @formatter:off
 			Response res;
 			try {
-				res = ConnectUtils.getDefaultConnection().data(ParamsUtils.getRequestParams(targetDate))
-						.method(Method.POST).execute();
+				res = ConnectUtils.getDefaultConnection()
+					  .data(ParamsUtils.getRequestParams(targetDate))
+					  .method(Method.POST).execute();
 			} catch (IOException e) {
 				log.info("{}連線有誤。可能是沒資料或者連線有問題。再手動確認 ", targetDate);
 				continue;
 			}
+			// @formatter:on
 
 			Document doc = Jsoup.parse(res.body());
 			Elements trs = doc.select("tr.12bk");
