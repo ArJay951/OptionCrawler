@@ -11,77 +11,77 @@ public class Option implements Serializable {
 	private static final long serialVersionUID = 7146346255317282781L;
 
 	/**
-	 * ¤é´Á
+	 * æ—¥æœŸ
 	 */
 	private LocalDate localDate;
 
 	/**
-	 * Åv§O
+	 * æ¬Šåˆ¥
 	 */
 	private OptionType optionType;
 
 	/**
-	 * ¨­¤À§O
+	 * èº«åˆ†åˆ¥
 	 */
 	private Investor investor;
 
 	/**
-	 * ¶R¤è¤f¼Æ
+	 * è²·æ–¹å£æ•¸
 	 */
 	private Long holderDealtLot;
 
 	/**
-	 * ¶R¤è«´¬ùª÷ÃB
+	 * è²·æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	private Long holderDealtAmount;
 
 	/**
-	 * ½æ¤è¤f¼Æ
+	 * è³£æ–¹å£æ•¸
 	 */
 	private Long sellerDealtLot;
 
 	/**
-	 * ½æ¤è«´¬ùª÷ÃB
+	 * è³£æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	private Long sellerDealtAmount;
 
 	/**
-	 * ¤f¼Æ®tÃB
+	 * å£æ•¸å·®é¡
 	 */
 	private Long balanceDealtLot;
 
 	/**
-	 * «´¬ùª÷®tÃB
+	 * å¥‘ç´„é‡‘å·®é¡
 	 */
 	private Long balanceDealtAmount;
 
 	/**
-	 * ¥¼¥­­Ü¶R¤è¤f¼Æ
+	 * æœªå¹³å€‰è²·æ–¹å£æ•¸
 	 */
 	private Long holderKeepLot;
 
 	/**
-	 * ¥¼¥­­Ü¶R¤è«´¬ùª÷ÃB
+	 * æœªå¹³å€‰è²·æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	private Long holderKeepAmount;
 
 	/**
-	 * ¥¼¥­­Ü½æ¤è¤f¼Æ
+	 * æœªå¹³å€‰è³£æ–¹å£æ•¸
 	 */
 	private Long sellerKeepLot;
 
 	/**
-	 * ¥¼¥­­Ü½æ¤è«´¬ùª÷ÃB
+	 * æœªå¹³å€‰è³£æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	private Long sellerKeepAmount;
 
 	/**
-	 * ¥¼¥­­Ü¤f¼Æ®tÃB
+	 * æœªå¹³å€‰å£æ•¸å·®é¡
 	 */
 	private Long balanceKeepLot;
 
 	/**
-	 * ¥¼¥­­Ü«´¬ùª÷®tÃB
+	 * æœªå¹³å€‰å¥‘ç´„é‡‘å·®é¡
 	 */
 	private Long balanceKeepAmount;
 

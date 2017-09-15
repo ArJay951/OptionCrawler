@@ -4,6 +4,6 @@ public enum OptionType {
 	Call, Put;
 
 	public static OptionType parseOf(String optionType) {
-		return "¶RÅv".equals(optionType) ? Call : Put;
+		return "è²·æ¬Š".equals(optionType) ? Call : Put;
 	}
 }

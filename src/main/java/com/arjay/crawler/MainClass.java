@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
@@ -23,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.arjay.crawler.pojo.Option;
+import com.arjay.crawler.pojo.OptionField;
+import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 import com.arjay.crawler.service.OptionParser;
 import com.arjay.crawler.service.impl.OptionParserImpl;
@@ -37,18 +41,24 @@ public class MainClass {
 		LocalDate startLocalDate;
 		LocalDate endLocalDate;
 
+		boolean filter = true;
+
 		if (args.length == 0) {
 			startLocalDate = LocalDate.now().plusDays(-1);
 			endLocalDate = LocalDate.now();
-			log.info("¨t²Î±NÂ^¨ú«e¤@¤Ñªº¸ê®Æ¡C");
+			log.info("ç³»çµ±å°‡æ“·å–å‰ä¸€å¤©çš„è³‡æ–™ã€‚");
 		} else if (args.length == 1 && MainClass.vaildDate(args[0])) {
 			startLocalDate = LocalDate.parse(args[0]);
 			endLocalDate = LocalDate.now();
 		} else if (args.length == 2 && MainClass.vaildDate(args[0]) && MainClass.vaildDate(args[1])) {
 			startLocalDate = LocalDate.parse(args[0]);
 			endLocalDate = LocalDate.parse(args[1]);
+		} else if (args.length == 3 && MainClass.vaildDate(args[0]) && MainClass.vaildDate(args[1])) {
+			startLocalDate = LocalDate.parse(args[0]);
+			endLocalDate = LocalDate.parse(args[1]);
+			filter = "y".equalsIgnoreCase(args[2]) || "".equals(args[2]);
 		} else {
-			log.info("¤é´Á¿é¤J¦³»~¡A«ØÄ³¿é¤J®æ¦¡¬°¡G[yyyy-MM-dd]");
+			log.info("æ—¥æœŸè¼¸å…¥æœ‰èª¤ï¼Œå»ºè­°è¼¸å…¥æ ¼å¼ç‚ºï¼š[yyyy-MM-dd]");
 			return;
 		}
 
@@ -66,8 +76,11 @@ public class MainClass {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
+		sb.append(Arrays.asList(OptionField.fields).stream().collect(Collectors.joining(",")));
+		sb.append(System.getProperty("line.separator"));
 
 		for (long day = days; day > 0; day--) {
+			sb.append(System.getProperty("line.separator"));
 			LocalDate parserDate = LocalDate.now().plusDays(day * -1);
 
 			log.info("parseDate:{}", parserDate);
@@ -117,11 +130,17 @@ public class MainClass {
 				}
 
 				Option option = parser.fromElements(tds);
-				option.setLocalDate(startLocalDate);
+				option.setLocalDate(parserDate);
 				option.setOptionType(optionType);
-
-				sb.append(option.toCsv());
-				sb.append(System.getProperty("line.separator"));
+				if (filter) {
+					if (option.getInvestor() == Investor.FI) {
+						sb.append(option.toCsv());
+						sb.append(System.getProperty("line.separator"));
+					}
+				} else {
+					sb.append(option.toCsv());
+					sb.append(System.getProperty("line.separator"));
+				}
 			}
 			Thread.sleep(Math.abs(random.nextLong() % 2000 + 500));
 		}

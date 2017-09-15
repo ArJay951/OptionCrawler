@@ -4,6 +4,9 @@ apply plugin: 'eclipse'
 sourceCompatibility = 1.8
 version = '0.0.1'
 
+tasks.withType(JavaCompile) {
+     options.encoding = "UTF-8"
+}
 jar {
 	baseName = project.name
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }

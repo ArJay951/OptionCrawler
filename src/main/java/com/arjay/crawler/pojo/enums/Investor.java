@@ -2,26 +2,26 @@ package com.arjay.crawler.pojo.enums;
 
 public enum Investor {
 	/**
-	 * ´²¤á<BR>
+	 * æ•£æˆ¶<BR>
 	 * Retail Investors
 	 */
-	RI("Retail Investors", "´²¤á"),
+	RI("Retail Investors", "æ•£æˆ¶"),
 	/**
-	 * ¥~¸ê<BR>
+	 * å¤–è³‡<BR>
 	 * Foreign Investor
 	 */
-	FI("Foreign Investor", "¥~¸ê"),
+	FI("Foreign Investor", "å¤–è³‡"),
 	/**
 	 * 
-	 * §ë«H<BR>
+	 * æŠ•ä¿¡<BR>
 	 * Domestic Institution
 	 */
-	DI("Domestic Institution", "§ë«H"),
+	DI("Domestic Institution", "æŠ•ä¿¡"),
 	/**
-	 * ¦ÛÀç°Ó<BR>
+	 * è‡ªç‡Ÿå•†<BR>
 	 * Dealer
 	 */
-	DEALER("Dealer", "¦ÛÀç°Ó");
+	DEALER("Dealer", "è‡ªç‡Ÿå•†");
 
 	private String investor;
 
@@ -41,11 +41,11 @@ public enum Investor {
 	}
 
 	public static Investor parseOf(String investor) {
-		if ("¦ÛÀç°Ó".equals(investor)) {
+		if ("è‡ªç‡Ÿå•†".equals(investor)) {
 			return DEALER;
-		} else if ("§ë«H".equals(investor)) {
+		} else if ("æŠ•ä¿¡".equals(investor)) {
 			return DI;
-		} else if ("¥~¸ê".equals(investor)) {
+		} else if ("å¤–è³‡".equals(investor)) {
 			return FI;
 		}
 		return null;

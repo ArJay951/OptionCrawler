@@ -2,73 +2,76 @@ package com.arjay.crawler.pojo;
 
 public class OptionField {
 
+	public final static String[] fields = { "æ—¥æœŸ", "æ¬Šåˆ¥", "èº«åˆ†åˆ¥", "è²·æ–¹å£æ•¸", "è²·æ–¹å¥‘ç´„é‡‘é¡", "è³£æ–¹å£æ•¸", "è³£æ–¹å¥‘ç´„é‡‘é¡", "å£æ•¸å·®é¡", "å¥‘ç´„é‡‘å·®é¡",
+			"æœªå¹³å€‰è²·æ–¹å£æ•¸", "æœªå¹³å€‰è²·æ–¹å¥‘ç´„é‡‘é¡", "æœªå¹³å€‰è³£æ–¹å£æ•¸", "æœªå¹³å€‰è³£æ–¹å¥‘ç´„é‡‘é¡", "æœªå¹³å€‰å£æ•¸å·®é¡", "æœªå¹³å€‰å¥‘ç´„é‡‘å·®é¡" };
+
 	/**
-	 * Åv§O
+	 * æ¬Šåˆ¥
 	 */
 	public static int optionType = 0;
 
 	/**
-	 * ¨­¤À§O
+	 * èº«åˆ†åˆ¥
 	 */
 	public static int investor = 1;
 
 	/**
-	 * ¶R¤è¤f¼Æ
+	 * è²·æ–¹å£æ•¸
 	 */
 	public static int holderDealtLot = 2;
 
 	/**
-	 * ¶R¤è«´¬ùª÷ÃB
+	 * è²·æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	public static int holderDealtAmount = 3;
 
 	/**
-	 * ½æ¤è¤f¼Æ
+	 * è³£æ–¹å£æ•¸
 	 */
 	public static int sellerDealtLot = 4;
 
 	/**
-	 * ½æ¤è«´¬ùª÷ÃB
+	 * è³£æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	public static int sellerDealtAmount = 5;
 
 	/**
-	 * ¤f¼Æ®tÃB
+	 * å£æ•¸å·®é¡
 	 */
 	public static int balanceDealtLot = 6;
 
 	/**
-	 * «´¬ùª÷®tÃB
+	 * å¥‘ç´„é‡‘å·®é¡
 	 */
 	public static int balanceDealtAmount = 7;
 
 	/**
-	 * ¥¼¥­­Ü¶R¤è¤f¼Æ
+	 * æœªå¹³å€‰è²·æ–¹å£æ•¸
 	 */
 	public static int holderKeepLot = 8;
 
 	/**
-	 * ¥¼¥­­Ü¶R¤è«´¬ùª÷ÃB
+	 * æœªå¹³å€‰è²·æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	public static int holderKeepAmount = 9;
 
 	/**
-	 * ¥¼¥­­Ü½æ¤è¤f¼Æ
+	 * æœªå¹³å€‰è³£æ–¹å£æ•¸
 	 */
 	public static int sellerKeepLot = 10;
 
 	/**
-	 * ¥¼¥­­Ü½æ¤è«´¬ùª÷ÃB
+	 * æœªå¹³å€‰è³£æ–¹å¥‘ç´„é‡‘é¡
 	 */
 	public static int sellerKeepAmount = 11;
 
 	/**
-	 * ¥¼¥­­Ü¤f¼Æ®tÃB
+	 * æœªå¹³å€‰å£æ•¸å·®é¡
 	 */
 	public static int balanceKeepLot = 12;
 
 	/**
-	 * ¥¼¥­­Ü«´¬ùª÷®tÃB
+	 * æœªå¹³å€‰å¥‘ç´„é‡‘å·®é¡
 	 */
 	public static int balanceKeepAmount = 13;
 }
