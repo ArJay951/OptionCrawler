@@ -48,7 +48,7 @@ public class MainClass {
 			startLocalDate = LocalDate.parse(args[0]);
 			endLocalDate = LocalDate.parse(args[1]);
 		} else {
-			log.info("日期格式有誤，請確認輸入格式為：[yyyy-MM-dd]");
+			log.info("日期輸入有誤，建議輸入格式為：[yyyy-MM-dd]");
 			return;
 		}
 
@@ -134,6 +134,12 @@ public class MainClass {
 	}
 
 	public static boolean vaildDate(String date) {
-		return date != null && date.matches("((\\d{4})-(0[13578]|10|12)-(0[1-9]|[12][0-9]|3[01]))");
+		try {
+			LocalDate.parse(date);
+			return true;
+		} catch (Exception e) {
+			log.info("date error :{}", date);
+			return false;
+		}
 	}
 }
