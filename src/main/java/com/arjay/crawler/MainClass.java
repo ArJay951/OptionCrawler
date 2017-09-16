@@ -35,7 +35,7 @@ public class MainClass {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
-		// InstitutionalInvestor.fields
+
 		sb.append(Arrays.asList(InstitutionalInvestor.fields).stream().collect(Collectors.joining(",")));
 		sb.append(System.getProperty(","));
 		sb.append(Arrays.asList(LargeAmountInvestor.fields).stream().collect(Collectors.joining(",")));
