@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "LARGEAMOUNT_INVESTOR")
 public class LargeAmountInvestor implements Serializable {
 
 	private static final long serialVersionUID = -3375209939449240419L;
