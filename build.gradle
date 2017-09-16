@@ -19,6 +19,10 @@ jar {
     version = null
 }
 
+bootRepackage {
+    mainClass = 'com.arjay.crawler.WebMainApplication'
+}
+
 sourceSets {
     main {
         java {
