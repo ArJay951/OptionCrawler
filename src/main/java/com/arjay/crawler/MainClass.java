@@ -58,7 +58,7 @@ public class MainClass {
 
 			for (int i = 0; i < length; i++) {
 				sb.append(i < institutionalInvestors.size() - 1 ? institutionalInvestors.get(i).toCsv() : ",,,,,,,,,,,,,,");
-				sb.append(System.getProperty(","));
+				sb.append(",");
 				sb.append(i < largeAmountInvestors.size() - 1 ? largeAmountInvestors.get(i).toCsv() : "");
 				sb.append(System.getProperty("line.separator"));
 			}
