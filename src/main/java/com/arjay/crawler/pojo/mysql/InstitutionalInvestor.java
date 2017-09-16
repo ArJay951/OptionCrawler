@@ -10,11 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 
 @Entity
+@Table(name="INSTITUTIONAL_INVESTOR")
 public class InstitutionalInvestor implements Serializable {
 
 	private static final long serialVersionUID = 7146346255317282781L;
