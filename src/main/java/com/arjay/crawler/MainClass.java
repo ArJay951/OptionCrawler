@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.arjay.crawler.config.ParamsConfig;
 import com.arjay.crawler.crawler.impl.InstitutionalInvestorCrawler;
 import com.arjay.crawler.crawler.impl.LargeAmountInvestorCrawler;
+import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.LargeAmountInvestor;
 import com.arjay.crawler.utils.FileUtils;
 
@@ -34,6 +36,8 @@ public class MainClass {
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
 		// InstitutionalInvestor.fields
+		sb.append(Arrays.asList(InstitutionalInvestor.fields).stream().collect(Collectors.joining(",")));
+		sb.append(System.getProperty(","));
 		sb.append(Arrays.asList(LargeAmountInvestor.fields).stream().collect(Collectors.joining(",")));
 		sb.append(System.getProperty("line.separator"));
 
@@ -42,23 +46,23 @@ public class MainClass {
 
 		log.info("系統將從{}爬資料到{}", targetDate, endDate);
 
-		// Map<LocalDate, OptionDaily> map = new LinkedHashMap<>();
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
-			// institutionalInvestorCrawler.setTargetDate(targetDate).connect().parseDailyData().stream().filter(ii
-			// -> ii != null).forEach(investor -> {
-			// if (!paramsConfig.isFilterFI() || investor.getInvestor() ==
-			// Investor.FI) {
-			// sb.append(investor.toCsv());
-			// sb.append(System.getProperty("line.separator"));
-			// }
-			// });
-			largeAmountInvestorCrawler.setTargetDate(targetDate).connect().parseDailyData().stream()
-					.filter(lai -> lai != null).forEach(investor -> {
-						log.info("{}",investor.toCsv());
-						sb.append(investor.toCsv());
-						sb.append(System.getProperty("line.separator"));
-					});
+			List<InstitutionalInvestor> institutionalInvestors = institutionalInvestorCrawler.setTargetDate(targetDate)
+					.connect().parseDailyData().stream().collect(Collectors.toList());
 
+			List<LargeAmountInvestor> largeAmountInvestors = largeAmountInvestorCrawler.setTargetDate(targetDate)
+					.connect().parseDailyData().stream().collect(Collectors.toList());
+
+			int length = institutionalInvestors.size();
+			length = length > largeAmountInvestors.size() ? length : largeAmountInvestors.size();
+
+			for (int i = 0; i < length; i++) {
+				sb.append(i < institutionalInvestors.size() - 1 ? institutionalInvestors.get(i).toCsv() : ",,,,,,,,,,,,,,");
+				sb.append(System.getProperty(","));
+				sb.append(i < largeAmountInvestors.size() - 1 ? largeAmountInvestors.get(i).toCsv() : "");
+				sb.append(System.getProperty("line.separator"));
+			}
+			sb.append(System.getProperty("line.separator"));
 			Thread.sleep(Math.abs(random.nextLong() % 1000 + 500));
 		}
 
