@@ -1,5 +1,6 @@
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 version = '0.0.1'
@@ -18,15 +19,32 @@ jar {
     version = null
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
 repositories {
     mavenCentral()
 }
 
 dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.7.3'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
-    compile group: 'org.springframework', name: 'spring-core', version: '4.3.11.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context', version: '4.3.11.RELEASE'
+
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.7.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '1.5.7.RELEASE'
+	
+	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+	
+	compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1'
+
+	   
 }
 
 test {

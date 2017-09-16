@@ -2,15 +2,22 @@ package com.arjay.crawler.parser;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.exception.ParamsException;
-import com.arjay.crawler.parser.impl.InstitutionalInvestorParser;
-import com.arjay.crawler.parser.impl.LargeAmountInvestorParser;
 
+@Component
 public class ParserFactory {
 
-	private static OptionParser<?>[] parsers = new OptionParser[] { new InstitutionalInvestorParser(),
-			new LargeAmountInvestorParser() };
+	private static Set<OptionParser<?>> parsers = new HashSet<>();
+
+	public static boolean addOptionParsers(Collection<OptionParser<?>> optionParsers) {
+		return parsers.addAll(optionParsers);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static <T> OptionParser<T> getParser(Class<T> parseTo) {

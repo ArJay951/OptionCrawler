@@ -10,11 +10,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
-import com.arjay.crawler.pojo.LargeAmountInvestor;
+import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
 
+@Service
 public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInvestor> {
 
 	@SuppressWarnings("unused")
@@ -34,10 +36,10 @@ public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInves
 		for (int i = 10; i < trs.size(); i++) {
 			Elements tds = trs.get(i).select("td");
 
-			if (tds.size() != 10 && tds.size() != 11){
+			if (tds.size() != 10 && tds.size() != 11) {
 				continue;
 			}
-			
+
 			if (tds.size() == 11) {
 				contractName = tds.get(0).text().replaceAll("\\s", "");
 			}

@@ -1,11 +1,20 @@
-package com.arjay.crawler.pojo;
+package com.arjay.crawler.pojo.mysql;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 
+@Entity
 public class InstitutionalInvestor implements Serializable {
 
 	private static final long serialVersionUID = 7146346255317282781L;
@@ -13,79 +22,99 @@ public class InstitutionalInvestor implements Serializable {
 	public final static String[] fields = { "日期", "權別", "身分別", "買方口數", "買方契約金額", "賣方口數", "賣方契約金額", "口數差額", "契約金差額",
 			"未平倉買方口數", "未平倉買方契約金額", "未平倉賣方口數", "未平倉賣方契約金額", "未平倉口數差額", "未平倉契約金差額" };
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
 	/**
 	 * 日期
 	 */
+	@Column(name = "LOCAL_DATE")
 	private LocalDate localDate;
 
 	/**
 	 * 權別
 	 */
+	@Column(name = "OPTION_TYPE")
+	@Enumerated(EnumType.STRING)
 	private OptionType optionType;
 
 	/**
 	 * 身分別
 	 */
+	@Enumerated(EnumType.STRING)
 	private Investor investor;
 
 	/**
 	 * 買方口數
 	 */
+	@Column(name = "HOLDER_DEALT_LOT")
 	private Long holderDealtLot;
 
 	/**
 	 * 買方契約金額
 	 */
+	@Column(name = "HOLDER_DEALT_AMOUNT")
 	private Long holderDealtAmount;
 
 	/**
 	 * 賣方口數
 	 */
+	@Column(name = "SELLER_DEALT_LOT")
 	private Long sellerDealtLot;
 
 	/**
 	 * 賣方契約金額
 	 */
+	@Column(name = "SELLER_DEALT_AMOUNT")
 	private Long sellerDealtAmount;
 
 	/**
 	 * 口數差額
 	 */
+	@Column(name = "BALANCE_DEALT_LOT")
 	private Long balanceDealtLot;
 
 	/**
 	 * 契約金差額
 	 */
+	@Column(name = "BALANCE_DEALT_AMOUNT")
 	private Long balanceDealtAmount;
 
 	/**
 	 * 未平倉買方口數
 	 */
+	@Column(name = "HOLDER_KEEP_LOT")
 	private Long holderKeepLot;
 
 	/**
 	 * 未平倉買方契約金額
 	 */
+	@Column(name = "HOLDER_KEEP_AMOUNT")
 	private Long holderKeepAmount;
 
 	/**
 	 * 未平倉賣方口數
 	 */
+	@Column(name = "SELLER_KEEP_LOT")
 	private Long sellerKeepLot;
 
 	/**
 	 * 未平倉賣方契約金額
 	 */
+	@Column(name = "SELLER_KEEP_AMOUNT")
 	private Long sellerKeepAmount;
 
 	/**
 	 * 未平倉口數差額
 	 */
+	@Column(name = "BALANCE_KEEP_LOT")
 	private Long balanceKeepLot;
 
 	/**
 	 * 未平倉契約金差額
 	 */
+	@Column(name = "BALANCE_KEEP_AMOUNT")
 	private Long balanceKeepAmount;
 
 	public LocalDate getLocalDate() {
