@@ -13,10 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.arjay.crawler.config.ParamsConfig;
-import com.arjay.crawler.pojo.InstitutionalInvestor;
-import com.arjay.crawler.pojo.enums.Investor;
-import com.arjay.crawler.service.impl.InstitutionalInvestorCrawler;
-import com.arjay.crawler.service.impl.InstitutionalInvestorParser;
+import com.arjay.crawler.crawler.impl.InstitutionalInvestorCrawler;
+import com.arjay.crawler.crawler.impl.LargeAmountInvestorCrawler;
+import com.arjay.crawler.pojo.LargeAmountInvestor;
 import com.arjay.crawler.utils.FileUtils;
 
 public class MainClass {
@@ -26,31 +25,40 @@ public class MainClass {
 	public static void main(String[] args) throws InterruptedException {
 
 		ParamsConfig paramsConfig = new ParamsConfig(args);
-		
+
 		Random random = new Random(System.currentTimeMillis());
-		
-		InstitutionalInvestorCrawler institutionalInvestorCrawler = new InstitutionalInvestorCrawler(new InstitutionalInvestorParser());
-		
-		
+
+		InstitutionalInvestorCrawler institutionalInvestorCrawler = new InstitutionalInvestorCrawler();
+		LargeAmountInvestorCrawler largeAmountInvestorCrawler = new LargeAmountInvestorCrawler();
+
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
-		sb.append(Arrays.asList(InstitutionalInvestor.fields).stream().collect(Collectors.joining(",")));
+		// InstitutionalInvestor.fields
+		sb.append(Arrays.asList(LargeAmountInvestor.fields).stream().collect(Collectors.joining(",")));
+		sb.append(System.getProperty("line.separator"));
 
 		LocalDate targetDate = paramsConfig.getStartDate();
 		LocalDate endDate = paramsConfig.getEndDate();
 
 		log.info("系統將從{}爬資料到{}", targetDate, endDate);
-		
+
+		// Map<LocalDate, OptionDaily> map = new LinkedHashMap<>();
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
-			institutionalInvestorCrawler.connectWith(targetDate);
-			
-			institutionalInvestorCrawler.parseDailyData().forEach(investor->{
-				if (!paramsConfig.isFilterFI() || investor.getInvestor() == Investor.FI) {
-					sb.append(investor.toCsv());
-					sb.append(System.getProperty("line.separator"));
-				}
-			});
-			
+			// institutionalInvestorCrawler.setTargetDate(targetDate).connect().parseDailyData().stream().filter(ii
+			// -> ii != null).forEach(investor -> {
+			// if (!paramsConfig.isFilterFI() || investor.getInvestor() ==
+			// Investor.FI) {
+			// sb.append(investor.toCsv());
+			// sb.append(System.getProperty("line.separator"));
+			// }
+			// });
+			largeAmountInvestorCrawler.setTargetDate(targetDate).connect().parseDailyData().stream()
+					.filter(lai -> lai != null).forEach(investor -> {
+						log.info("{}",investor.toCsv());
+						sb.append(investor.toCsv());
+						sb.append(System.getProperty("line.separator"));
+					});
+
 			Thread.sleep(Math.abs(random.nextLong() % 1000 + 500));
 		}
 

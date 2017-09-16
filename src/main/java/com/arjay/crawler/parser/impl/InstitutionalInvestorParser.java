@@ -1,19 +1,20 @@
-package com.arjay.crawler.service.impl;
+package com.arjay.crawler.parser.impl;
 
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.arjay.crawler.parser.OptionParser;
 import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.enums.Investor;
-import com.arjay.crawler.service.OptionParser;
 
-public class InstitutionalInvestorParser implements OptionParser {
+public class InstitutionalInvestorParser implements OptionParser<InstitutionalInvestor> {
 
+	@SuppressWarnings("unused")
 	private Logger log = LoggerFactory.getLogger(InstitutionalInvestorParser.class);
 
 	@Override
-	public InstitutionalInvestor toInstitutionalInvestor(final Elements tds) {
+	public InstitutionalInvestor parserData(final Elements tds) {
 		if (tds.size() == 0) {
 			return null;
 		}
