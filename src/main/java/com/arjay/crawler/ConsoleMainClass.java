@@ -15,22 +15,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.arjay.crawler.config.ParamsConfig;
-import com.arjay.crawler.config.SpringConfig;
 import com.arjay.crawler.crawler.impl.InstitutionalInvestorCrawler;
 import com.arjay.crawler.crawler.impl.LargeAmountInvestorCrawler;
-import com.arjay.crawler.pojo.InstitutionalInvestor;
-import com.arjay.crawler.pojo.LargeAmountInvestor;
+import com.arjay.crawler.pojo.mysql.InstitutionalInvestor;
+import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
 import com.arjay.crawler.utils.FileUtils;
 
-public class MainClass {
+public class ConsoleMainClass {
 
-	private static Logger log = LoggerFactory.getLogger(MainClass.class);
+	private static Logger log = LoggerFactory.getLogger(ConsoleMainClass.class);
 
 	public static void main(String[] args) throws InterruptedException {
 
 		ParamsConfig paramsConfig = new ParamsConfig(args);
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+		//AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
 		
 		Random random = new Random(System.currentTimeMillis());
@@ -77,7 +76,7 @@ public class MainClass {
 
 		FileUtils.writeFile(pathTo, sb.toString().getBytes());
 		
-		context.close();
+		//context.close();
 	}
 
 }

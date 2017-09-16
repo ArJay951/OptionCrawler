@@ -9,10 +9,10 @@ import org.jsoup.Connection.Method;
 import org.jsoup.Connection.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.arjay.crawler.exception.CrawlerException;
 import com.arjay.crawler.parser.OptionParser;
-import com.arjay.crawler.parser.ParserFactory;
 import com.arjay.crawler.utils.ConnectUtils;
 
 public abstract class AbstractCrawler<T> {
@@ -24,9 +24,10 @@ public abstract class AbstractCrawler<T> {
 	protected LocalDate targetDate;
 
 	protected Response res;
-
-	protected OptionParser<T> parser = ParserFactory.getParser(this.getDataClass());
-
+	
+	@Autowired
+	protected OptionParser<T> parser;
+	
 	protected abstract Class<T> getDataClass();
 
 	public AbstractCrawler<T> setTargetDate(LocalDate targetDate) {

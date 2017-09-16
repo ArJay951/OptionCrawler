@@ -10,12 +10,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
-import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.enums.OptionType;
+import com.arjay.crawler.pojo.mysql.InstitutionalInvestor;
 
+@Service
 public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalInvestor> {
 
 	@SuppressWarnings("unused")

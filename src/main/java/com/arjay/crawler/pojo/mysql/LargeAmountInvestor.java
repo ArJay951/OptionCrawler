@@ -1,8 +1,15 @@
-package com.arjay.crawler.pojo;
+package com.arjay.crawler.pojo.mysql;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class LargeAmountInvestor implements Serializable {
 
 	private static final long serialVersionUID = -3375209939449240419L;
@@ -10,15 +17,20 @@ public class LargeAmountInvestor implements Serializable {
 	public final static String[] fields = { "日期", "契約名稱", "到期月份(週別)", "前五買方部位數", "前五特定法人買方部位數", "前五買方百分比",
 			"前五特定法人買方百分比", "前十買方部位數", "前十特定法人買方部位數", "前十買方百分比", "前十特定法人買方百分比", "前五賣方部位數", "前五特定法人賣方部位數", "前五賣方百分比",
 			"前五特定法人賣方百分比", "前十賣方部位數", "前十特定法人賣方部位數", "前十賣方百分比", "前十特定法人賣方百分比", "全市場未沖銷部位數" };
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
 	/**
 	 * 日期
 	 */
+	@Column(name="LOCAL_DATE")
 	private LocalDate localDate;
 
 	/**
 	 * 契約名稱
 	 */
+	@Column(name="CONTRACT_NAME")
 	private String contractName;
 
 	/**
@@ -29,86 +41,103 @@ public class LargeAmountInvestor implements Serializable {
 	/**
 	 * 前五買方部位數
 	 */
+	@Column(name="TOP5_HOLDER_LOT")
 	private Integer top5HolderLot;
 
 	/**
 	 * 特定法人前五買方部位數
 	 */
+	@Column(name="SPECIAL_TOP5_HOLDER_LOT")
 	private Integer specialTop5HolderLot;
 
 	/**
 	 * 前五買方百分比
 	 */
+	@Column(name="TOP5_HOLDER_PERCENT")
 	private Float top5HolderPercent;
 
 	/**
 	 * 特定法人前五買方百分比
 	 */
+	@Column(name="SPECIAL_TOP5_HOLDER_PERCENT")
 	private Float specialTop5HolderPercent;
 
 	/**
 	 * 前十買方部位數
 	 */
+	@Column(name="TOP10_HOLDER_LOT")
 	private Integer top10HolderLot;
 
 	/**
 	 * 特定法人前十買方部位數
 	 */
+	@Column(name="SPECIAL_TOP10_HOLDER_LOT")
 	private Integer specialTop10HolderLot;
 
 	/**
 	 * 前十買方百分比
 	 */
+	@Column(name="TOP10_HOLDER_PERCENT")
 	private Float top10HolderPercent;
 
 	/**
 	 * 特定法人前十買方百分比
 	 */
+	@Column(name="SPECIAL_TOP10_HOLDER_PERCENT")
 	private Float specialTop10HolderPercent;
 
 	/**
 	 * 前五賣方部位數
 	 */
+	@Column(name="TOP5_SELLER_LOT")
 	private Integer top5SellerLot;
 
 	/**
 	 * 特定法人前五賣方部位數
 	 */
+	@Column(name="SPECIAL_TOP5_SELLER_LOT")
 	private Integer specialTop5SellerLot;
 
 	/**
 	 * 前五賣方百分比
 	 */
+	@Column(name="TOP5_SELLER_PERCENT")
 	private Float top5SellerPercent;
 
 	/**
 	 * 特定法人前五賣方百分比
 	 */
+	@Column(name="SPECIAL_TOP5_SELLER_PERCENT")
 	private Float specialTop5SellerPercent;
 
 	/**
 	 * 前十賣方部位數
 	 */
+	@Column(name="TOP10_SELLER_LOT")
 	private Integer top10SellerLot;
 
 	/**
 	 * 特定法人前十賣方部位數
 	 */
+	@Column(name="SPECIAL_TOP10_SELLER_LOT")
 	private Integer specialTop10SellerLot;
 
 	/**
 	 * 前十賣方百分比
 	 */
+	@Column(name="TOP10_SELLER_PERCENT")
 	private Float top10SellerPercent;
 
 	/**
 	 * 特定法人前十賣方百分比
 	 */
+	@Column(name="SPECIAL_TOP10_SELLER_PERCENT")
 	private Float specialTop10SellerPercent;
 
 	/**
 	 * 全市場未沖銷部位數
 	 */
+	@Column(name = "BALANCE_KEEP_LOT")
 	private String balanceKeepLot;
 
 	public LocalDate getLocalDate() {

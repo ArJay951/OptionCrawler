@@ -3,11 +3,14 @@ package com.arjay.crawler.parser.impl;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.arjay.crawler.parser.OptionParser;
-import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.enums.Investor;
+import com.arjay.crawler.pojo.mysql.InstitutionalInvestor;
 
+@Component
 public class InstitutionalInvestorParser implements OptionParser<InstitutionalInvestor> {
 
 	@SuppressWarnings("unused")

@@ -3,10 +3,13 @@ package com.arjay.crawler.parser.impl;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.arjay.crawler.parser.OptionParser;
-import com.arjay.crawler.pojo.LargeAmountInvestor;
+import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
 
+@Component
 public class LargeAmountInvestorParser implements OptionParser<LargeAmountInvestor> {
 
 	@SuppressWarnings("unused")
