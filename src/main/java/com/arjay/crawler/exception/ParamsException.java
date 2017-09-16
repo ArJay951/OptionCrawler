@@ -1,6 +1,6 @@
 package com.arjay.crawler.exception;
 
-import com.arjay.crawler.config.OptionConfig;
+import com.arjay.crawler.config.ParamsConfig;
 
 public class ParamsException extends RuntimeException {
 
@@ -12,16 +12,16 @@ public class ParamsException extends RuntimeException {
 
 	public ParamsException(String s) {
 		super(s);
-		OptionConfig.printHelp();
+		ParamsConfig.printHelp();
 	}
 
 	public ParamsException(String s, Throwable throwable) {
 		super(s, throwable);
-		OptionConfig.printHelp();
+		ParamsConfig.printHelp();
 	}
 
 	public ParamsException(Throwable throwable) {
 		super(throwable);
-		OptionConfig.printHelp();
+		ParamsConfig.printHelp();
 	}
 }

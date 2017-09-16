@@ -2,10 +2,10 @@ package com.arjay.crawler.service;
 
 import org.jsoup.select.Elements;
 
-import com.arjay.crawler.pojo.Option;
+import com.arjay.crawler.pojo.InstitutionalInvestor;
 
 public interface OptionParser {
 
-	public Option fromElements(Elements tds);
+	public InstitutionalInvestor toInstitutionalInvestor(Elements tds);
 
 }

@@ -3,12 +3,10 @@ package com.arjay.crawler.utils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
-import com.arjay.crawler.config.OptionConfig;
-
 public class ConnectUtils {
 	//@formatter:off
-	public static Connection getDefaultConnection() {
-		return Jsoup.connect(OptionConfig.sourceUrl)
+	public static Connection getDefaultConnection(String url) {
+		return Jsoup.connect(url)
 				.header("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
 				.header("Accept-Encoding","gzip, deflate")
 				.header("Accept-Language","zh-TW,zh;q=0.8,en-US;q=0.6,en;q=0.4")

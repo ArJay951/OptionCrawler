@@ -1,6 +1,5 @@
 package com.arjay.crawler;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -10,24 +9,15 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import org.jsoup.Connection.Method;
-import org.jsoup.Connection.Response;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.arjay.crawler.config.OptionConfig;
-import com.arjay.crawler.pojo.Option;
-import com.arjay.crawler.pojo.OptionField;
+import com.arjay.crawler.config.ParamsConfig;
+import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.enums.Investor;
-import com.arjay.crawler.pojo.enums.OptionType;
-import com.arjay.crawler.service.OptionParser;
-import com.arjay.crawler.service.impl.OptionParserImpl;
-import com.arjay.crawler.utils.ConnectUtils;
+import com.arjay.crawler.service.impl.InstitutionalInvestorCrawler;
+import com.arjay.crawler.service.impl.InstitutionalInvestorParser;
 import com.arjay.crawler.utils.FileUtils;
-import com.arjay.crawler.utils.ParamsUtils;
 
 public class MainClass {
 
@@ -35,56 +25,33 @@ public class MainClass {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		OptionConfig optionConfig = new OptionConfig(args);
-		OptionParser parser = new OptionParserImpl();
+		ParamsConfig paramsConfig = new ParamsConfig(args);
+		
 		Random random = new Random(System.currentTimeMillis());
-
+		
+		InstitutionalInvestorCrawler institutionalInvestorCrawler = new InstitutionalInvestorCrawler(new InstitutionalInvestorParser());
+		
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append('\ufeff');
-		sb.append(Arrays.asList(OptionField.fields).stream().collect(Collectors.joining(",")));
+		sb.append(Arrays.asList(InstitutionalInvestor.fields).stream().collect(Collectors.joining(",")));
 
-		LocalDate targetDate = optionConfig.getStartDate();
-		LocalDate endDate = optionConfig.getEndDate();
+		LocalDate targetDate = paramsConfig.getStartDate();
+		LocalDate endDate = paramsConfig.getEndDate();
 
 		log.info("系統將從{}爬資料到{}", targetDate, endDate);
-
+		
 		for (; targetDate.isBefore(endDate); targetDate = targetDate.plusDays(1)) {
-			sb.append(System.getProperty("line.separator"));
-			log.info("crawler date:{}", targetDate);
-
-			// @formatter:off
-			Response res;
-			try {
-				res = ConnectUtils.getDefaultConnection()
-					  .data(ParamsUtils.getRequestParams(targetDate))
-					  .method(Method.POST).execute();
-			} catch (IOException e) {
-				log.info("{}連線有誤。可能是沒資料或者連線有問題。再手動確認 ", targetDate);
-				continue;
-			}
-			// @formatter:on
-
-			Document doc = Jsoup.parse(res.body());
-			Elements trs = doc.select("tr.12bk");
-
-			OptionType optionType = null;
-			for (int i = 3; i < trs.size(); i++) {
-				Elements tds = trs.get(i).select("td");
-
-				if (tds.size() == 16 || tds.size() == 14) {
-					optionType = OptionType.parseOf(tds.get(tds.size() == 16 ? 2 : 0).text().replaceAll("\\s", ""));
-				}
-
-				Option option = parser.fromElements(tds);
-				option.setLocalDate(targetDate);
-				option.setOptionType(optionType);
-
-				if (!optionConfig.isFilterFI() || option.getInvestor() == Investor.FI) {
-					sb.append(option.toCsv());
+			institutionalInvestorCrawler.connectWith(targetDate);
+			
+			institutionalInvestorCrawler.parseDailyData().forEach(investor->{
+				if (!paramsConfig.isFilterFI() || investor.getInvestor() == Investor.FI) {
+					sb.append(investor.toCsv());
 					sb.append(System.getProperty("line.separator"));
 				}
-			}
-			Thread.sleep(Math.abs(random.nextLong() % 2000 + 500));
+			});
+			
+			Thread.sleep(Math.abs(random.nextLong() % 1000 + 500));
 		}
 
 		String fileName = DateTimeFormatter.ofPattern("yyyy-MM-dd-HHmmss").format(LocalDateTime.now());

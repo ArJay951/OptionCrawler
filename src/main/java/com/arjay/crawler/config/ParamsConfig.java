@@ -9,13 +9,11 @@ import org.slf4j.LoggerFactory;
 import com.arjay.crawler.exception.ParamsException;
 import com.arjay.crawler.utils.LocalDateUtils;
 
-public class OptionConfig {
+public class ParamsConfig {
 
-	private static Logger log = LoggerFactory.getLogger(OptionConfig.class);
+	private static Logger log = LoggerFactory.getLogger(ParamsConfig.class);
 
 	private static final String paramsRegex = "-[hHsSeEfF]";
-
-	public static final String sourceUrl = "http://www.taifex.com.tw/chinese/3/7_12_5.asp";
 
 	private LocalDate startDate = LocalDate.now().plusDays(-1);
 
@@ -58,10 +56,10 @@ public class OptionConfig {
 		log.info("-f y/n   是否只顯示外資資料，預設為true。 format : (y/n)");
 	}
 
-	public OptionConfig(String[] args) {
+	public ParamsConfig(String[] args) {
 		for (int i = 0; i < args.length; i++) {
 			if ("-h".equalsIgnoreCase(args[i])) {
-				OptionConfig.printHelp();
+				ParamsConfig.printHelp();
 				continue;
 			}
 

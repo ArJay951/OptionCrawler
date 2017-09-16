@@ -2,11 +2,6 @@ package com.arjay.crawler.pojo.enums;
 
 public enum Investor {
 	/**
-	 * 散戶<BR>
-	 * Retail Investors
-	 */
-	RI("Retail Investors", "散戶"),
-	/**
 	 * 外資<BR>
 	 * Foreign Investor
 	 */

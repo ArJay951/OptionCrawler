@@ -6,9 +6,12 @@ import java.time.LocalDate;
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 
-public class Option implements Serializable {
+public class InstitutionalInvestor implements Serializable {
 
 	private static final long serialVersionUID = 7146346255317282781L;
+
+	public final static String[] fields = { "日期", "權別", "身分別", "買方口數", "買方契約金額", "賣方口數", "賣方契約金額", "口數差額", "契約金差額",
+			"未平倉買方口數", "未平倉買方契約金額", "未平倉賣方口數", "未平倉賣方契約金額", "未平倉口數差額", "未平倉契約金差額" };
 
 	/**
 	 * 日期
@@ -248,7 +251,7 @@ public class Option implements Serializable {
 		builder.append(",");
 		builder.append(optionType);
 		builder.append(",");
-		builder.append(investor.getChinese());
+		builder.append(investor);
 		builder.append(",");
 		builder.append(holderDealtLot);
 		builder.append(",");

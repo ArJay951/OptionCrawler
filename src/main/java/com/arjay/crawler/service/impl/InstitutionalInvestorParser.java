@@ -4,21 +4,21 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.arjay.crawler.pojo.Option;
+import com.arjay.crawler.pojo.InstitutionalInvestor;
 import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.service.OptionParser;
 
-public class OptionParserImpl implements OptionParser {
+public class InstitutionalInvestorParser implements OptionParser {
 
-	private Logger log = LoggerFactory.getLogger(OptionParserImpl.class);
+	private Logger log = LoggerFactory.getLogger(InstitutionalInvestorParser.class);
 
 	@Override
-	public Option fromElements(final Elements tds) {
+	public InstitutionalInvestor toInstitutionalInvestor(final Elements tds) {
 		if (tds.size() == 0) {
 			return null;
 		}
 
-		final Option option = new Option();
+		final InstitutionalInvestor option = new InstitutionalInvestor();
 
 		int i = tds.size() == 16 ? 3 : tds.size() == 14 ? 1 : 0;
 
