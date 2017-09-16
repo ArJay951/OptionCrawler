@@ -12,8 +12,10 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.arjay.crawler.config.ParamsConfig;
+import com.arjay.crawler.config.SpringConfig;
 import com.arjay.crawler.crawler.impl.InstitutionalInvestorCrawler;
 import com.arjay.crawler.crawler.impl.LargeAmountInvestorCrawler;
 import com.arjay.crawler.pojo.InstitutionalInvestor;
@@ -28,6 +30,9 @@ public class MainClass {
 
 		ParamsConfig paramsConfig = new ParamsConfig(args);
 
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+
+		
 		Random random = new Random(System.currentTimeMillis());
 
 		InstitutionalInvestorCrawler institutionalInvestorCrawler = new InstitutionalInvestorCrawler();
@@ -71,6 +76,8 @@ public class MainClass {
 		Path pathTo = Paths.get("./" + fileName + ".csv");
 
 		FileUtils.writeFile(pathTo, sb.toString().getBytes());
+		
+		context.close();
 	}
 
 }
