@@ -14,7 +14,6 @@ import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
 import com.arjay.crawler.repository.InstitutionalInvestorRepository;
 import com.arjay.crawler.repository.LargeAmountInvestorRepository;
 
-@Component
 public class CrawlerTask implements Runnable {
 
 	@Autowired
