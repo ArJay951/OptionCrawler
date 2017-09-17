@@ -1,5 +1,6 @@
 package com.arjay.crawler.crawler.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +11,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
+import com.arjay.crawler.parser.impl.LargeAmountInvestorParser;
 import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
+import com.arjay.crawler.utils.LocalDateUtils;
 
-@Service
+@Component
 public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInvestor> {
 
 	@SuppressWarnings("unused")
@@ -45,7 +48,7 @@ public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInves
 			}
 
 			LargeAmountInvestor investor = parser.parserData(tds);
-			investor.setLocalDate(targetDate);
+			investor.setLocalDate(LocalDateUtils.asDate(targetDate));
 			investor.setContractName(contractName);
 
 			daliy.add(investor);
@@ -81,4 +84,10 @@ public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInves
 		return targetPage = "http://www.taifex.com.tw/chinese/3/7_9.asp";
 	}
 
+	public static void main(String[] args) {
+		LargeAmountInvestorCrawler crawler = new LargeAmountInvestorCrawler();
+		crawler.parser = new LargeAmountInvestorParser();
+		crawler.setTargetDate(LocalDate.now().plusDays(-3)).connect().parseDailyData()
+				.forEach(la -> log.info("{}", la.getContractName().getBytes()));
+	}
 }

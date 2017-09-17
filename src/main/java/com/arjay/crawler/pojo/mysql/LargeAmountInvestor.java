@@ -1,7 +1,7 @@
 package com.arjay.crawler.pojo.mysql;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,14 +20,14 @@ public class LargeAmountInvestor implements Serializable {
 			"前五特定法人買方百分比", "前十買方部位數", "前十特定法人買方部位數", "前十買方百分比", "前十特定法人買方百分比", "前五賣方部位數", "前五特定法人賣方部位數", "前五賣方百分比",
 			"前五特定法人賣方百分比", "前十賣方部位數", "前十特定法人賣方部位數", "前十賣方百分比", "前十特定法人賣方百分比", "全市場未沖銷部位數" };
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	/**
 	 * 日期
 	 */
 	@Column(name="LOCAL_DATE")
-	private LocalDate localDate;
+	private Date localDate;
 
 	/**
 	 * 契約名稱
@@ -140,13 +140,13 @@ public class LargeAmountInvestor implements Serializable {
 	 * 全市場未沖銷部位數
 	 */
 	@Column(name = "BALANCE_KEEP_LOT")
-	private String balanceKeepLot;
+	private Integer balanceKeepLot;
 
-	public LocalDate getLocalDate() {
+	public Date getLocalDate() {
 		return localDate;
 	}
 
-	public void setLocalDate(LocalDate localDate) {
+	public void setLocalDate(Date localDate) {
 		this.localDate = localDate;
 	}
 
@@ -294,11 +294,11 @@ public class LargeAmountInvestor implements Serializable {
 		this.specialTop10SellerPercent = specialTop10SellerPercent;
 	}
 
-	public String getBalanceKeepLot() {
+	public Integer getBalanceKeepLot() {
 		return balanceKeepLot;
 	}
 
-	public void setBalanceKeepLot(String balanceKeepLot) {
+	public void setBalanceKeepLot(Integer balanceKeepLot) {
 		this.balanceKeepLot = balanceKeepLot;
 	}
 

@@ -1,7 +1,7 @@
 package com.arjay.crawler.pojo.mysql;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ import com.arjay.crawler.pojo.enums.Investor;
 import com.arjay.crawler.pojo.enums.OptionType;
 
 @Entity
-@Table(name="INSTITUTIONAL_INVESTOR")
+@Table(name = "INSTITUTIONAL_INVESTOR")
 public class InstitutionalInvestor implements Serializable {
 
 	private static final long serialVersionUID = 7146346255317282781L;
@@ -25,14 +25,14 @@ public class InstitutionalInvestor implements Serializable {
 			"未平倉買方口數", "未平倉買方契約金額", "未平倉賣方口數", "未平倉賣方契約金額", "未平倉口數差額", "未平倉契約金差額" };
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
 	 * 日期
 	 */
 	@Column(name = "LOCAL_DATE")
-	private LocalDate localDate;
+	private Date localDate;
 
 	/**
 	 * 權別
@@ -119,11 +119,11 @@ public class InstitutionalInvestor implements Serializable {
 	@Column(name = "BALANCE_KEEP_AMOUNT")
 	private Long balanceKeepAmount;
 
-	public LocalDate getLocalDate() {
+	public Date getLocalDate() {
 		return localDate;
 	}
 
-	public void setLocalDate(LocalDate localDate) {
+	public void setLocalDate(Date localDate) {
 		this.localDate = localDate;
 	}
 

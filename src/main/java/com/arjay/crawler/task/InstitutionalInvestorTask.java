@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,37 +16,38 @@ import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
 import com.arjay.crawler.repository.InstitutionalInvestorRepository;
 import com.arjay.crawler.repository.LargeAmountInvestorRepository;
 
-public class CrawlerTask implements Runnable {
+public class InstitutionalInvestorTask implements Runnable {
 
-	@Autowired
+	private static final Logger log = LoggerFactory.getLogger(InstitutionalInvestorTask.class);
+
 	private InstitutionalInvestorCrawler institutionalInvestorCrawler;
 
-	@Autowired
-	private LargeAmountInvestorCrawler largeAmountInvestorCrawler;
-
-	@Autowired
 	private InstitutionalInvestorRepository institutionalInvestorRepository;
 
-	@Autowired
-	private LargeAmountInvestorRepository largeAmountInvestorRepository;
-
 	private LocalDate targetDate;
-
-	public CrawlerTask(LocalDate targetDate) {
+	
+	// @formatter:off
+	public InstitutionalInvestorTask(LocalDate targetDate,
+			InstitutionalInvestorCrawler institutionalInvestorCrawler,
+			InstitutionalInvestorRepository institutionalInvestorRepository) {
 		this.targetDate = targetDate;
+		this.institutionalInvestorCrawler= institutionalInvestorCrawler;
+		this.institutionalInvestorRepository = institutionalInvestorRepository;
 	}
+	// @formatter:on
 
 	@Override
 	public void run() {
+		log.info("*** start Institutional Investor crawling task ***");
+		log.info("institutionalInvestorCrawler:{}", institutionalInvestorCrawler);
+		log.info("institutionalInvestorRepository:{}", institutionalInvestorRepository);
+
 		List<InstitutionalInvestor> institutionalInvestors = institutionalInvestorCrawler.setTargetDate(targetDate)
 				.connect().parseDailyData().stream().collect(Collectors.toList());
 
 		institutionalInvestorRepository.save(institutionalInvestors);
 
-		List<LargeAmountInvestor> largeAmountInvestors = largeAmountInvestorCrawler.setTargetDate(targetDate).connect()
-				.parseDailyData().stream().collect(Collectors.toList());
-
-		largeAmountInvestorRepository.save(largeAmountInvestors);
+		log.info("*** end Institutional Investor crawling task ***");
 	}
 
 }

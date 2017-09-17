@@ -10,14 +10,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
 import com.arjay.crawler.pojo.enums.OptionType;
 import com.arjay.crawler.pojo.mysql.InstitutionalInvestor;
+import com.arjay.crawler.utils.LocalDateUtils;
 
-@Service
+@Component
 public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalInvestor> {
 
 	@SuppressWarnings("unused")
@@ -42,7 +43,7 @@ public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalI
 			}
 
 			InstitutionalInvestor investor = parser.parserData(tds);
-			investor.setLocalDate(targetDate);
+			investor.setLocalDate(LocalDateUtils.asDate(targetDate));
 			investor.setOptionType(optionType);
 
 			daliy.add(investor);

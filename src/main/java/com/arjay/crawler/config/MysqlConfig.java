@@ -7,9 +7,11 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -25,6 +27,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @PropertySource({ "classpath:/properties/database.properties" })
 public class MysqlConfig {
 
+	private static final Logger log = LoggerFactory.getLogger(MysqlConfig.class);
+
 	@Value("${options.datasource.username}")
 	private String username;
 
@@ -34,8 +38,11 @@ public class MysqlConfig {
 	@Value("${options.datasource.password}")
 	private String password;
 
-	@Bean
+	@Bean(name = "mysqlSource")
 	public DataSource dataSource() {
+		log.info("url:{}", url);
+		log.info("username:{}", username);
+
 		BasicDataSource bds = new BasicDataSource();
 		bds.setDriverClassName("com.mysql.jdbc.Driver");
 		bds.setUrl(url);
@@ -78,8 +85,8 @@ public class MysqlConfig {
 	}
 
 	@Bean
-	public JdbcTemplate jdbcTemplate(){
+	public JdbcTemplate jdbcTemplate() {
 		return new JdbcTemplate(dataSource());
 	}
-	
+
 }
