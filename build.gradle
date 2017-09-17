@@ -1,9 +1,25 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.7.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
-apply plugin: 'war'
+apply plugin: 'org.springframework.boot'
 
 sourceCompatibility = 1.8
 version = '0.0.1'
+
+bootRepackage {
+    mainClass = 'com.arjay.crawler.WebMainApplication'
+}
 
 tasks.withType(JavaCompile) {
      options.encoding = "UTF-8"
@@ -43,7 +59,6 @@ dependencies {
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
 	
 	compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.1.1'
-
 	   
 }
 

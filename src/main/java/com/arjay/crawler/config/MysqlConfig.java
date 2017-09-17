@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = "com.arjay.crawler.repository", entityManagerFactoryRef = "mysqlEntityManagerFactory")
 @EnableTransactionManagement
-@PropertySource({ "classpath:/properties/default.properties" })
+@PropertySource({ "classpath:/properties/database.properties" })
 public class MysqlConfig {
 
 	@Value("${options.datasource.username}")
