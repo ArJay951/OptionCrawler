@@ -14,7 +14,7 @@ jar {
     manifest {
         attributes 'Implementation-Title': 'Option Crawler',
                    'Implementation-Version': version,
-                   'Main-Class': 'com.arjay.crawler.MainClass'
+                   'Main-Class': 'com.arjay.crawler.WebMainApplication'
     }
     version = null
 }
