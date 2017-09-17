@@ -4,7 +4,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.arjay.crawler.parser.OptionParser;
 import com.arjay.crawler.pojo.mysql.LargeAmountInvestor;
@@ -58,13 +58,16 @@ public class LargeAmountInvestorParser implements OptionParser<LargeAmountInvest
 		String[] top10SellerPercent = this.replaceAndSplitRawData(tds.get(i++).text());
 		option.setTop10SellerPercent(Float.parseFloat(top10SellerPercent[0]));
 		option.setSpecialTop10SellerPercent(Float.parseFloat(top10SellerPercent[1]));
-
-		option.setBalanceKeepLot(tds.get(i).text().replaceAll(",", ""));
+		
+		String balanceKeepLot = tds.get(i).text().replaceAll("[-,]", "");
+		option.setBalanceKeepLot(StringUtils.isEmpty(balanceKeepLot) ? 0 :Integer.parseInt(balanceKeepLot));
 
 		return option;
 	}
 
 	private String[] replaceAndSplitRawData(String raw) {
-		return raw.replaceAll("[\\s,\\)%]", "").split("\\(");
+		raw = raw.replaceAll("[-\\s,\\)%]", "");
+		return StringUtils.isEmpty(raw) ? new String[] { "0", "0" } : raw.split("\\(");
 	}
+
 }
