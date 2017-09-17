@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -33,7 +34,7 @@ public class MysqlConfig {
 	@Value("${options.datasource.password}")
 	private String password;
 
-	@Bean(name = "mysqlSource")
+	@Bean
 	public DataSource dataSource() {
 		BasicDataSource bds = new BasicDataSource();
 		bds.setDriverClassName("com.mysql.jdbc.Driver");
@@ -70,11 +71,15 @@ public class MysqlConfig {
 
 	@Bean
 	public PlatformTransactionManager transactionManager() {
-
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory());
 
 		return txManager;
 	}
 
+	@Bean
+	public JdbcTemplate jdbcTemplate(){
+		return new JdbcTemplate(dataSource());
+	}
+	
 }
