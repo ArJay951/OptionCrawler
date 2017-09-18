@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
 sourceCompatibility = 1.8
 version = '0.0.1'
@@ -34,6 +35,11 @@ jar {
     }
     version = null
 }
+
+webAppDirName = 'WebContent'
+war.destinationDir = file("/opt/tomcat/webapps")
+war.baseName = "OptionCrawler"
+
 
 sourceSets {
     main {
