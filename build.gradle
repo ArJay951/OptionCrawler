@@ -39,6 +39,7 @@ jar {
 webAppDirName = 'WebContent'
 war.destinationDir = file("/opt/tomcat/webapps")
 war.baseName = "OptionCrawler"
+war.archiveName 'OptionCrawler.war'
 
 
 sourceSets {
