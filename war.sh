@@ -1,2 +1,2 @@
 #!/bin/bash
-gradle clean dep --refresh-dependencies war
+sudo gradle clean dep --refresh-dependencies war
