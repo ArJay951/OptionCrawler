@@ -16,6 +16,9 @@ public class FuturesDaily implements Serializable {
 
 	private static final long serialVersionUID = 3034657173280530092L;
 
+	public static String[] fields = { "契約", "到期月份(週別)", "開盤價", "最高價", "最低價", "最後成交價", "漲跌價", "漲跌%", "盤後交易時段成交量",
+			"一般交易時段成交量", "合計成交量", "結算價", "未沖銷契約量", "最後最佳買價", "最後最佳賣價", "歷史最高價", "歷史最低價" };
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -41,7 +44,7 @@ public class FuturesDaily implements Serializable {
 	private Integer change;
 
 	@Column(name = "CHANGE_PERCENT")
-	private Integer changePercent;
+	private Float changePercent;
 
 	@Column(name = "AFTER_TRADE_TIME_AMOUNT")
 	private Integer afterTradeTimeAmount;
@@ -54,6 +57,9 @@ public class FuturesDaily implements Serializable {
 
 	@Column(name = "SETTLEMENT_PRICE")
 	private Integer settlementPrice;
+
+	@Column(name = "OPEN_INTEREST")
+	private Integer openInterest;
 
 	@Column(name = "FINAL_BUY_PRICE")
 	private Integer finalBuyPrice;
@@ -139,11 +145,11 @@ public class FuturesDaily implements Serializable {
 		this.change = change;
 	}
 
-	public Integer getChangePercent() {
+	public Float getChangePercent() {
 		return changePercent;
 	}
 
-	public void setChangePercent(Integer changePercent) {
+	public void setChangePercent(Float changePercent) {
 		this.changePercent = changePercent;
 	}
 
@@ -177,6 +183,14 @@ public class FuturesDaily implements Serializable {
 
 	public void setSettlementPrice(Integer settlementPrice) {
 		this.settlementPrice = settlementPrice;
+	}
+
+	public Integer getOpenInterest() {
+		return openInterest;
+	}
+
+	public void setOpenInterest(Integer openInterest) {
+		this.openInterest = openInterest;
 	}
 
 	public Integer getFinalBuyPrice() {
@@ -242,6 +256,8 @@ public class FuturesDaily implements Serializable {
 		builder.append(totalAmount);
 		builder.append(", settlementPrice=");
 		builder.append(settlementPrice);
+		builder.append(", openInterest=");
+		builder.append(openInterest);
 		builder.append(", finalBuyPrice=");
 		builder.append(finalBuyPrice);
 		builder.append(", finalSellPrice=");

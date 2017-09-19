@@ -1,5 +1,6 @@
 package com.arjay.crawler.crawler.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,13 +15,13 @@ import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
+import com.arjay.crawler.parser.impl.FuturesDailyParser;
 import com.arjay.crawler.pojo.mysql.FuturesDaily;
 import com.arjay.crawler.utils.LocalDateUtils;
 
 @Component
 public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 
-	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory.getLogger(FuturesDailyCrawler.class);
 
 	@Override
@@ -30,13 +31,16 @@ public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 		}
 
 		Document doc = Jsoup.parse(res.body());
-		Elements trs = doc.select("tr.12bk");
+		Elements trs = doc.select("tr[bgcolor~=(ivory|#CFDFEF)]");
 
 		List<FuturesDaily> daliy = new ArrayList<>();
-		for (int i = 3; i < trs.size(); i++) {
+		for (int i = 0; i < trs.size(); i++) {
 			Elements tds = trs.get(i).select("td");
 
 			FuturesDaily futuresDaily = parser.parserData(tds);
+			if (futuresDaily == null) {
+				continue;
+			}
 			futuresDaily.setDate(LocalDateUtils.asDate(targetDate));
 
 			daliy.add(futuresDaily);
@@ -47,6 +51,7 @@ public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 	@Override
 	protected Map<String, String> getParams() {
 		Map<String, String> data = new HashMap<>();
+		data.put("qtype", "2");
 		data.put("DATA_DATE_Y", String.valueOf(targetDate.getYear()));
 		data.put("DATA_DATE_M", String.valueOf(targetDate.getMonthValue()));
 		data.put("DATA_DATE_D", String.valueOf(targetDate.getDayOfMonth()));
@@ -54,7 +59,8 @@ public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 		data.put("smonth", String.valueOf(targetDate.getMonthValue()));
 		data.put("sday", String.valueOf(targetDate.getDayOfMonth()));
 		data.put("datestart", targetDate.toString().replaceAll("/", "-"));
-		data.put("COMMODITY_ID", "TXO");
+		data.put("COMMODITY_ID", "TX");
+
 		return data;
 	}
 
@@ -66,6 +72,11 @@ public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 	@Override
 	protected String getSourcePage() {
 		return targetPage = "http://www.taifex.com.tw/chinese/3/3_1_1.asp";
+	}
+
+	public static void main(String[] args) {
+		new FuturesDailyCrawler().setTargetDate(LocalDate.now()).connect().setParser(new FuturesDailyParser())
+				.parseDailyData();
 	}
 
 }

@@ -24,10 +24,10 @@ public abstract class AbstractCrawler<T> {
 	protected LocalDate targetDate;
 
 	protected Response res;
-	
+
 	@Autowired
 	protected OptionParser<T> parser;
-	
+
 	protected abstract Class<T> getDataClass();
 
 	public AbstractCrawler<T> setTargetDate(LocalDate targetDate) {
@@ -47,6 +47,11 @@ public abstract class AbstractCrawler<T> {
 			log.info("連線有誤，可能是沒資料或者連線有問題。");
 			throw new CrawlerException("連線有誤，可能是沒資料或者連線有問題。");
 		}
+	}
+
+	public AbstractCrawler<T> setParser(OptionParser<T> parser) {
+		this.parser = parser;
+		return this;
 	}
 
 	public abstract List<T> parseDailyData();
