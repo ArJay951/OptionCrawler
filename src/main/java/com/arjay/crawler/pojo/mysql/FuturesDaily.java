@@ -41,6 +41,7 @@ public class FuturesDaily implements Serializable {
 	@Column(name = "FINAL_PRICE")
 	private Integer finalPrice;
 
+	@Column(name = "`CHANGE`")
 	private Integer change;
 
 	@Column(name = "CHANGE_PERCENT")
