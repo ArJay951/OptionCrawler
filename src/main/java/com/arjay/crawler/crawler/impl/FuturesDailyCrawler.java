@@ -14,18 +14,17 @@ import org.springframework.stereotype.Component;
 
 import com.arjay.crawler.crawler.AbstractCrawler;
 import com.arjay.crawler.exception.CrawlerException;
-import com.arjay.crawler.pojo.enums.OptionType;
-import com.arjay.crawler.pojo.mysql.InstitutionalInvestor;
+import com.arjay.crawler.pojo.mysql.FuturesDaily;
 import com.arjay.crawler.utils.LocalDateUtils;
 
 @Component
-public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalInvestor> {
+public class FuturesDailyCrawler extends AbstractCrawler<FuturesDaily> {
 
 	@SuppressWarnings("unused")
-	private static Logger log = LoggerFactory.getLogger(InstitutionalInvestorCrawler.class);
+	private static Logger log = LoggerFactory.getLogger(FuturesDailyCrawler.class);
 
 	@Override
-	public List<InstitutionalInvestor> parseDailyData() {
+	public List<FuturesDaily> parseDailyData() {
 		if (res == null) {
 			throw new CrawlerException("連線有誤，請先建立連線");
 		}
@@ -33,20 +32,14 @@ public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalI
 		Document doc = Jsoup.parse(res.body());
 		Elements trs = doc.select("tr.12bk");
 
-		List<InstitutionalInvestor> daliy = new ArrayList<>();
-		OptionType optionType = null;
+		List<FuturesDaily> daliy = new ArrayList<>();
 		for (int i = 3; i < trs.size(); i++) {
 			Elements tds = trs.get(i).select("td");
 
-			if (tds.size() == 16 || tds.size() == 14) {
-				optionType = OptionType.parseOf(tds.get(tds.size() == 16 ? 2 : 0).text().replaceAll("\\s", ""));
-			}
+			FuturesDaily futuresDaily = parser.parserData(tds);
+			futuresDaily.setDate(LocalDateUtils.asDate(targetDate));
 
-			InstitutionalInvestor investor = parser.parserData(tds);
-			investor.setDate(LocalDateUtils.asDate(targetDate));
-			investor.setOptionType(optionType);
-
-			daliy.add(investor);
+			daliy.add(futuresDaily);
 		}
 		return daliy;
 	}
@@ -66,13 +59,13 @@ public class InstitutionalInvestorCrawler extends AbstractCrawler<InstitutionalI
 	}
 
 	@Override
-	protected Class<InstitutionalInvestor> getDataClass() {
-		return InstitutionalInvestor.class;
+	protected Class<FuturesDaily> getDataClass() {
+		return FuturesDaily.class;
 	}
 
 	@Override
 	protected String getSourcePage() {
-		return targetPage = "http://www.taifex.com.tw/chinese/3/7_12_5.asp";
+		return targetPage = "http://www.taifex.com.tw/chinese/3/3_1_1.asp";
 	}
 
 }

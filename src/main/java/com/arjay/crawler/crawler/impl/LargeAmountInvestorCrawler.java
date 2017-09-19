@@ -48,7 +48,7 @@ public class LargeAmountInvestorCrawler extends AbstractCrawler<LargeAmountInves
 			}
 
 			LargeAmountInvestor investor = parser.parserData(tds);
-			investor.setLocalDate(LocalDateUtils.asDate(targetDate));
+			investor.setDate(LocalDateUtils.asDate(targetDate));
 			investor.setContractName(contractName);
 
 			daliy.add(investor);

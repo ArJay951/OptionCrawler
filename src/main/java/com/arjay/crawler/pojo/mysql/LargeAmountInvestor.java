@@ -26,13 +26,13 @@ public class LargeAmountInvestor implements Serializable {
 	/**
 	 * 日期
 	 */
-	@Column(name="LOCAL_DATE")
-	private Date localDate;
+	@Column(name = "DATE")
+	private Date date;
 
 	/**
 	 * 契約名稱
 	 */
-	@Column(name="CONTRACT_NAME")
+	@Column(name = "CONTRACT_NAME")
 	private String contractName;
 
 	/**
@@ -43,97 +43,97 @@ public class LargeAmountInvestor implements Serializable {
 	/**
 	 * 前五買方部位數
 	 */
-	@Column(name="TOP5_HOLDER_LOT")
+	@Column(name = "TOP5_HOLDER_LOT")
 	private Integer top5HolderLot;
 
 	/**
 	 * 特定法人前五買方部位數
 	 */
-	@Column(name="SPECIAL_TOP5_HOLDER_LOT")
+	@Column(name = "SPECIAL_TOP5_HOLDER_LOT")
 	private Integer specialTop5HolderLot;
 
 	/**
 	 * 前五買方百分比
 	 */
-	@Column(name="TOP5_HOLDER_PERCENT")
+	@Column(name = "TOP5_HOLDER_PERCENT")
 	private Float top5HolderPercent;
 
 	/**
 	 * 特定法人前五買方百分比
 	 */
-	@Column(name="SPECIAL_TOP5_HOLDER_PERCENT")
+	@Column(name = "SPECIAL_TOP5_HOLDER_PERCENT")
 	private Float specialTop5HolderPercent;
 
 	/**
 	 * 前十買方部位數
 	 */
-	@Column(name="TOP10_HOLDER_LOT")
+	@Column(name = "TOP10_HOLDER_LOT")
 	private Integer top10HolderLot;
 
 	/**
 	 * 特定法人前十買方部位數
 	 */
-	@Column(name="SPECIAL_TOP10_HOLDER_LOT")
+	@Column(name = "SPECIAL_TOP10_HOLDER_LOT")
 	private Integer specialTop10HolderLot;
 
 	/**
 	 * 前十買方百分比
 	 */
-	@Column(name="TOP10_HOLDER_PERCENT")
+	@Column(name = "TOP10_HOLDER_PERCENT")
 	private Float top10HolderPercent;
 
 	/**
 	 * 特定法人前十買方百分比
 	 */
-	@Column(name="SPECIAL_TOP10_HOLDER_PERCENT")
+	@Column(name = "SPECIAL_TOP10_HOLDER_PERCENT")
 	private Float specialTop10HolderPercent;
 
 	/**
 	 * 前五賣方部位數
 	 */
-	@Column(name="TOP5_SELLER_LOT")
+	@Column(name = "TOP5_SELLER_LOT")
 	private Integer top5SellerLot;
 
 	/**
 	 * 特定法人前五賣方部位數
 	 */
-	@Column(name="SPECIAL_TOP5_SELLER_LOT")
+	@Column(name = "SPECIAL_TOP5_SELLER_LOT")
 	private Integer specialTop5SellerLot;
 
 	/**
 	 * 前五賣方百分比
 	 */
-	@Column(name="TOP5_SELLER_PERCENT")
+	@Column(name = "TOP5_SELLER_PERCENT")
 	private Float top5SellerPercent;
 
 	/**
 	 * 特定法人前五賣方百分比
 	 */
-	@Column(name="SPECIAL_TOP5_SELLER_PERCENT")
+	@Column(name = "SPECIAL_TOP5_SELLER_PERCENT")
 	private Float specialTop5SellerPercent;
 
 	/**
 	 * 前十賣方部位數
 	 */
-	@Column(name="TOP10_SELLER_LOT")
+	@Column(name = "TOP10_SELLER_LOT")
 	private Integer top10SellerLot;
 
 	/**
 	 * 特定法人前十賣方部位數
 	 */
-	@Column(name="SPECIAL_TOP10_SELLER_LOT")
+	@Column(name = "SPECIAL_TOP10_SELLER_LOT")
 	private Integer specialTop10SellerLot;
 
 	/**
 	 * 前十賣方百分比
 	 */
-	@Column(name="TOP10_SELLER_PERCENT")
+	@Column(name = "TOP10_SELLER_PERCENT")
 	private Float top10SellerPercent;
 
 	/**
 	 * 特定法人前十賣方百分比
 	 */
-	@Column(name="SPECIAL_TOP10_SELLER_PERCENT")
+	@Column(name = "SPECIAL_TOP10_SELLER_PERCENT")
 	private Float specialTop10SellerPercent;
 
 	/**
@@ -142,12 +142,20 @@ public class LargeAmountInvestor implements Serializable {
 	@Column(name = "BALANCE_KEEP_LOT")
 	private Integer balanceKeepLot;
 
-	public Date getLocalDate() {
-		return localDate;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLocalDate(Date localDate) {
-		this.localDate = localDate;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getContractName() {
@@ -309,8 +317,10 @@ public class LargeAmountInvestor implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("LargeAmountInvestor [localDate=");
-		builder.append(localDate);
+		builder.append("LargeAmountInvestor [id=");
+		builder.append(id);
+		builder.append(", date=");
+		builder.append(date);
 		builder.append(", contractName=");
 		builder.append(contractName);
 		builder.append(", period=");
@@ -355,7 +365,7 @@ public class LargeAmountInvestor implements Serializable {
 
 	public String toCsv() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(localDate);
+		builder.append(date);
 		builder.append(",");
 		builder.append(contractName);
 		builder.append(",");

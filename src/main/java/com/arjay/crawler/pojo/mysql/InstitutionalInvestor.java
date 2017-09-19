@@ -31,8 +31,7 @@ public class InstitutionalInvestor implements Serializable {
 	/**
 	 * 日期
 	 */
-	@Column(name = "LOCAL_DATE")
-	private Date localDate;
+	private Date date;
 
 	/**
 	 * 權別
@@ -119,12 +118,20 @@ public class InstitutionalInvestor implements Serializable {
 	@Column(name = "BALANCE_KEEP_AMOUNT")
 	private Long balanceKeepAmount;
 
-	public Date getLocalDate() {
-		return localDate;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setLocalDate(Date localDate) {
-		this.localDate = localDate;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public OptionType getOptionType() {
@@ -242,8 +249,10 @@ public class InstitutionalInvestor implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Option [localDate=");
-		builder.append(localDate);
+		builder.append("InstitutionalInvestor [id=");
+		builder.append(id);
+		builder.append(", date=");
+		builder.append(date);
 		builder.append(", optionType=");
 		builder.append(optionType);
 		builder.append(", investor=");
@@ -278,7 +287,7 @@ public class InstitutionalInvestor implements Serializable {
 
 	public String toCsv() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(localDate);
+		builder.append(date);
 		builder.append(",");
 		builder.append(optionType);
 		builder.append(",");

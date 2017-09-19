@@ -1,6 +1,7 @@
 package com.arjay.crawler.pojo.mysql;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,8 @@ public class FuturesDaily implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	private Date date;
 
 	private String contract;
 
@@ -70,6 +73,14 @@ public class FuturesDaily implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getContract() {
@@ -205,6 +216,8 @@ public class FuturesDaily implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("FuturesDaily [id=");
 		builder.append(id);
+		builder.append(", date=");
+		builder.append(date);
 		builder.append(", contract=");
 		builder.append(contract);
 		builder.append(", period=");
