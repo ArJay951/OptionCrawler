@@ -26,7 +26,6 @@ public class LargeAmountInvestor implements Serializable {
 	/**
 	 * 日期
 	 */
-	@Column(name = "DATE")
 	private Date date;
 
 	/**
