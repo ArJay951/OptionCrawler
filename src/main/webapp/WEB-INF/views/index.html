@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh_TW">
+<meta charset="UTF-8">
+<title>Options Crawler</title>
+<link rel="stylesheet" href="webjars/angular-material/1.1.4/angular-material.min.css">
+</head>
+<body ng-app="datepickerBasicUsage" ng-cloak>
+	<!-- Angular Material requires Angular.js Libraries -->
+	<script src="webjars/angular/1.6.6/angular.js"></script>
+	<script src="webjars/angular-animate/1.6.6/angular-animate.min.js"></script>
+	<script src="webjars/angular-aria/1.6.6/angular-aria.min.js"></script>
+	<script src="webjars/angular-messages/1.6.6/angular-messages.min.js"></script>
+	<script src="webjars/angular-material/1.1.5/angular-material.min.js"></script>
+
+	<md-content ng-controller="AppCtrl as ctrl" layout-padding ng-cloak>
+	<div layout-gt-xs="row">
+		<div flex-gt-xs>
+			<h4>請選擇日期：</h4>
+			<md-datepicker ng-model="ctrl.startDate" md-placeholder="Enter date" ng-change="dateChanged(this)"></md-datepicker>
+		</div>
+	</div>
+	<div layout-gt-xs="row">
+		<div flex-gt-xs>
+			<h4>logid：</h4>
+			<input type="text" ng-model="ctrl.logid">
+			<input type="hidden" ng-model="ctrl.endDate">
+		</div>
+	</div>
+	<div layout-gt-xs="row">
+		<div flex-gt-xs>
+			<br><br>-----------------------<br>
+			<a data-ng-href="dsplit?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">dsplit</a>
+			<br><br>--------週報---------
+			<br>(選擇日期會自動該日期往後一周時間數據，例如選擇2017/08/10(三)會計算08/10~08/16(上週三到本週四)的數據)<br>
+			<a data-ng-href="ACDOutbound?start={{ctrl.startDate | date :'yyyy/MM/dd'}}&end={{ctrl.endDate | date :'yyyy/MM/dd'}}">ACDOutbound</a><br>
+			<a data-ng-href="ServiceLevel?start={{ctrl.startDate | date :'yyyy/MM/dd'}}&end={{ctrl.endDate | date :'yyyy/MM/dd'}}">ServiceLevel</a><br>
+			<a data-ng-href="TalkTimeAVG?start={{ctrl.startDate | date :'yyyy/MM/dd'}}&end={{ctrl.endDate | date :'yyyy/MM/dd'}}">TalkTimeAVG</a><br>
+			<a data-ng-href="AbanTimeWeekly?start={{ctrl.startDate | date :'yyyy/MM/dd'}}&end={{ctrl.endDate | date :'yyyy/MM/dd'}}">AbanTime</a>
+			<br><br>
+			<br><br>--------月報---------
+			<br>(選擇日期只決定月份，如選7月1~31日任一天，則會計算06/21~07/20的月報數據)<br>
+			<a data-ng-href="SkillTime?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">SkillTime</a><br>
+			<a data-ng-href="SkillACD?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">SkillACD</a><br>
+			<a data-ng-href="AgentTime?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">AgentTime</a><br>
+			<a data-ng-href="AbanTimeMonthly?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">AbanTime</a><br>
+			<br>
+			(選擇日期只決定月份，如選7月1~31日任一天，則會計算07/01~07/31的月報數據)
+			<br><br>
+			<a data-ng-href="BuyLog?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">BuyLog</a>
+			<br><br>-------績效報表-------<br>
+			<a data-ng-href="dagent?date={{ctrl.startDate | date :'yyyy/MM/dd'}}">dagent</a> (All-Agent，選擇日期只決定月份，如選7月1~31日任一天，則會計算07/01~07/31的月報數據)
+			<br><br>
+			<a data-ng-href="hagent?date={{ctrl.startDate | date :'yyyy/MM/dd'}}&logid={{ctrl.logid}}">hagent</a> (Agent個人，需選擇logID，選擇日期只決定月份，如選7月1~31日任一天，則會計算07/01~07/31的月報數據)
+			<br><br>
+		</div>
+	</div>
+	</md-content>
+
+	<script>
+	angular.module('datepickerBasicUsage', ['ngMaterial']).controller('AppCtrl', function($scope) {
+		  this.startDate = new Date();
+		  var date = new Date(this.startDate);
+		  date.setDate(this.startDate.getDate() + 6);
+		  this.endDate = date;
+		  
+		  this.isOpen = false;
+		  this.logid = "8004103";
+		  $scope.dateChanged = function($AppCtrl){
+			  var date = new Date($AppCtrl.ctrl.startDate);
+			  date.setDate($AppCtrl.ctrl.startDate.getDate() + 6);
+			  
+			  $AppCtrl.ctrl.endDate = date;
+		  }
+		  
+		});
+	</script>
+</body>
+</html>
